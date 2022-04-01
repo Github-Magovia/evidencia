@@ -29,7 +29,7 @@ public class PersonService {
     }
 
     //všetci
-    public List<PersonEntity> getPerson(){
+    public List<PersonEntity> getPeople(){
         return repository.findAll();
     }
     // podla id

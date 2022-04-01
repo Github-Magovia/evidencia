@@ -20,13 +20,15 @@ public class PersonController {
     public PersonEntity createPerson(@RequestBody PersonDto person){
         return service.createPerson(person);
     }
-    // get vsetci
+    // get vsetci -- dorobit
     @GetMapping("/api/people")
-    public List<PersonDto> getPerson(){
-        List<PersonEntity> persons = service.getPerson();
-        List<PersonDto> personDtoList = new ArrayList<>();
-        for (PersonEntity p : persons){personDtoList.add(mapToDto(p));}
-        return personDtoList;
+    public List<PersonDto> getPeople(){
+        List<PersonEntity> people = service.getPeople();
+        List<PersonDto> result = new ArrayList<>();
+        for (PersonEntity p : people){
+            result.add(mapToDto(p));
+        }
+        return result;
     }
     // get podla id
     @GetMapping("/api/people/{personId}")
