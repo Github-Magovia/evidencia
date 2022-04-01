@@ -1,10 +1,12 @@
+package githubmagovia.ockovanie.evidencia.entity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Person {
+public class PersonEntity {
     // atributy
     @Id
     @GeneratedValue
@@ -14,14 +16,6 @@ public class Person {
     private Date dateOfBirth;
     private String sex;
 
-
-    public Person(long id, String firstName, String lastName, Date dateOfBirth, String sex) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
-    }
 
     public long getId() {
         return id;
