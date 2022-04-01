@@ -41,7 +41,7 @@ public class PersonController {
         return mapToDto(service.updatePerson(personId,person));
     }
     //delete person
-    @DeleteMapping("/api/person/{personId}")
+    @DeleteMapping("/api/people/{personId}")
     public void deletePerson(@PathVariable Long personId){
         service.deletePerson(personId);
     }
