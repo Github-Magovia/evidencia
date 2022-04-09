@@ -4,19 +4,25 @@ package githubmagovia.ockovanie.evidencia.controllers;
 import githubmagovia.ockovanie.evidencia.controllers.dto.VaccinationDto;
 import githubmagovia.ockovanie.evidencia.entity.PersonEntity;
 import githubmagovia.ockovanie.evidencia.entity.VaccinationEntity;
+import githubmagovia.ockovanie.evidencia.entity.VaccineEntity;
+import githubmagovia.ockovanie.evidencia.service.PersonService;
 import githubmagovia.ockovanie.evidencia.service.VaccinationService;
-import org.springframework.stereotype.Controller;
+import githubmagovia.ockovanie.evidencia.service.VaccineService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 public class VaccinationController {
-    private final VaccinationService vaccinationService;
+    private  VaccinationService vaccinationService;
+    private VaccineService vaccineService;
+    private  PersonService personService;
 
-    public VaccinationController(VaccinationService vaccinationService) {
+    public VaccinationController(VaccinationService vaccinationService, PersonService personService, VaccineService vaccineService) {
         this.vaccinationService = vaccinationService;
+        this.personService = personService;
+        this.vaccineService = vaccineService;
     }
 
     //get all vaccinations
@@ -36,12 +42,12 @@ public class VaccinationController {
     }
     //get vaccination by id
     @GetMapping("/api/vaccinations/{vaccinationId}")
-    public VaccinationDto getVaccinationById(@PathVariable Long vaccinationId){
+    public VaccinationDto getVaccinationById(@PathVariable long vaccinationId){
         return  mapToDto(vaccinationService.getVaccinationById(vaccinationId));
     }
     //delete vaccination
     @DeleteMapping("api/vaccinations/{vaccinationId}")
-    public void deleteVaccination(@PathVariable Long vaccinationId){
+    public void deleteVaccination(@PathVariable long vaccinationId){
         vaccinationService.deleteVaccination(vaccinationId);
     }
 
@@ -54,7 +60,6 @@ public class VaccinationController {
         vaccinationDto.setId(entity.getId());
         vaccinationDto.setFirstName(person.getFirstName());
         vaccinationDto.setLastName(person.getLastName());
-        vaccinationDto.setName(vaccine.getName());
         vaccinationDto.setType(vaccine.getType());
         return vaccinationDto;
 

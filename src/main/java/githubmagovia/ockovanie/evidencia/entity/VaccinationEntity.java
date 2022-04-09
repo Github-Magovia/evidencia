@@ -8,17 +8,23 @@ import java.util.Date;
 public class VaccinationEntity {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
-    @JoinColumn
-    @ManyToOne
+    @OneToOne
     private PersonEntity person;
 
-    @JoinColumn
-    @ManyToOne
+    @OneToOne
     private VaccineEntity vaccine;
-
     private Date dateOfVaccination;
+    private int shotNumber;
+
+    public int getShotNumber() {
+        return shotNumber;
+    }
+
+    public void setShotNumber(int shotNumber) {
+        this.shotNumber = shotNumber;
+    }
 
     public Long getId() {
         return id;

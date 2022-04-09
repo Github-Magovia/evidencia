@@ -1,16 +1,34 @@
 package githubmagovia.ockovanie.evidencia.controllers.dto;
 
 public class VaccinationDto {
-    private Long id;
+    private long id;
+    private long idPerson;
+    private long idVaccine;
     private String firstName;
     private String lastName;
     private String type;
 
-    public Long getId() {
+    public long getIdPerson() {
+        return idPerson;
+    }
+
+    public void setIdPerson(long idPerson) {
+        this.idPerson = idPerson;
+    }
+
+    public long getIdVaccine() {
+        return idVaccine;
+    }
+
+    public void setIdVaccine(long idVaccine) {
+        this.idVaccine = idVaccine;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
