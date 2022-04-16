@@ -63,4 +63,6 @@ public class VaccineEntity {
     public void setAmountOfVaccines(Integer amountOfVaccines) {
         this.amountOfVaccines = amountOfVaccines;
     }
+
+    public void decrementAmountOfVaccines() { this.amountOfVaccines--; }
 }

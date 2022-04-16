@@ -1,5 +1,7 @@
 package githubmagovia.ockovanie.evidencia.entity;
 
+import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ public class PersonEntity {
     @Column(columnDefinition = "DATE")
     private LocalDate dateOfBirth;
     private String sex;
+    private VaccinationStatus status;
 
 
     public long getId() {
@@ -56,5 +59,13 @@ public class PersonEntity {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public VaccinationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(VaccinationStatus status) {
+        this.status = status;
     }
 }

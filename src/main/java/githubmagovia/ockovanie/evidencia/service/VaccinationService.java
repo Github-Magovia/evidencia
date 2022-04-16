@@ -2,6 +2,7 @@ package githubmagovia.ockovanie.evidencia.service;
 
 
 import githubmagovia.ockovanie.evidencia.controllers.dto.VaccinationDto;
+import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
 import githubmagovia.ockovanie.evidencia.domain.repositories.VaccinationRepository;
 import githubmagovia.ockovanie.evidencia.entity.PersonEntity;
 import githubmagovia.ockovanie.evidencia.entity.VaccinationEntity;
@@ -33,10 +34,14 @@ public class VaccinationService {
         VaccinationEntity vaccination = new VaccinationEntity();
         PersonEntity person = personService.getPersonById(request.getIdPerson());
         VaccineEntity vaccine = vaccineService.getVaccineById(request.getIdVaccine());
-        if (person != null && vaccine != null){
+        if (person != null && vaccine != null) {
+            int numberOfVaccinations = vaccinationRepository.findAllByPersonEquals(person).size() + 1;
             vaccination.setPerson(person);
             vaccination.setVaccine(vaccine);
+            vaccination.setShotNumber(numberOfVaccinations);
             vaccination.setDateOfVaccination(request.getDateOfVaccination());
+            vaccine.decrementAmountOfVaccines();
+            person.setStatus(processNewStatus(numberOfVaccinations, vaccine.getAmountToCompleteVaccination()));
             return vaccinationRepository.save(vaccination);
         }
         return null;
@@ -62,5 +67,12 @@ public class VaccinationService {
     //delete vaccination service
     public void deleteVaccination(long vaccinationId){
         vaccinationRepository.deleteById(vaccinationId);
+    }
+
+    private VaccinationStatus processNewStatus(int numberOfVaccinations, int requiredAmount) {
+        if (numberOfVaccinations <= 0) { return VaccinationStatus.NONE; }
+        if (numberOfVaccinations < requiredAmount) { return VaccinationStatus.PARTIAL; }
+        if (numberOfVaccinations == requiredAmount) { return VaccinationStatus.FULL; }
+        return VaccinationStatus.BOOSTER;
     }
 }

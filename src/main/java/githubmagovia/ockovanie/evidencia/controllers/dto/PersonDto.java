@@ -1,6 +1,7 @@
 package githubmagovia.ockovanie.evidencia.controllers.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
 
 import java.time.LocalDate;
 
@@ -11,6 +12,7 @@ public class PersonDto {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private String sex; //pohlavie
+    private VaccinationStatus status;
 
     public long getId() {
         return id;
@@ -50,5 +52,13 @@ public class PersonDto {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public VaccinationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(VaccinationStatus status) {
+        this.status = status;
     }
 }

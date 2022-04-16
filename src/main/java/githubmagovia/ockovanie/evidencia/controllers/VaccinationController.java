@@ -5,9 +5,7 @@ import githubmagovia.ockovanie.evidencia.controllers.dto.VaccinationDto;
 import githubmagovia.ockovanie.evidencia.entity.PersonEntity;
 import githubmagovia.ockovanie.evidencia.entity.VaccinationEntity;
 import githubmagovia.ockovanie.evidencia.entity.VaccineEntity;
-import githubmagovia.ockovanie.evidencia.service.PersonService;
 import githubmagovia.ockovanie.evidencia.service.VaccinationService;
-import githubmagovia.ockovanie.evidencia.service.VaccineService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +14,9 @@ import java.util.List;
 @RestController
 public class VaccinationController {
     private final VaccinationService vaccinationService;
-    private final VaccineService vaccineService;
-    private final PersonService personService;
 
-    public VaccinationController(VaccinationService vaccinationService, PersonService personService, VaccineService vaccineService) {
+    public VaccinationController(VaccinationService vaccinationService) {
         this.vaccinationService = vaccinationService;
-        this.personService = personService;
-        this.vaccineService = vaccineService;
     }
 
     //get all vaccinations
@@ -35,16 +29,19 @@ public class VaccinationController {
         }
         return result;
     }
+
     // post new vaccination
     @PostMapping("/api/vaccinations")
     public VaccinationEntity createVaccination(@RequestBody VaccinationDto vaccination){
         return vaccinationService.createVaccination(vaccination);
     }
+
     //get vaccination by id
     @GetMapping("/api/vaccinations/{vaccinationId}")
     public VaccinationDto getVaccinationById(@PathVariable long vaccinationId){
         return  mapToDto(vaccinationService.getVaccinationById(vaccinationId));
     }
+
     //delete vaccination
     @DeleteMapping("api/vaccinations/{vaccinationId}")
     public void deleteVaccination(@PathVariable long vaccinationId){
@@ -62,6 +59,5 @@ public class VaccinationController {
         vaccinationDto.setType(vaccine.getType());
         vaccinationDto.setDateOfVaccination(entity.getDateOfVaccination());
         return vaccinationDto;
-
     }
 }

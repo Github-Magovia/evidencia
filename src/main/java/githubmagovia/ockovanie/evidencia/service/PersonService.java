@@ -2,6 +2,7 @@ package githubmagovia.ockovanie.evidencia.service;
 
 
 import githubmagovia.ockovanie.evidencia.controllers.dto.PersonDto;
+import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
 import githubmagovia.ockovanie.evidencia.domain.repositories.PersonRepository;
 import githubmagovia.ockovanie.evidencia.entity.PersonEntity;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,7 @@ import java.util.Optional;
 
 @Service
 public class PersonService {
-
-    private PersonRepository repository;
+    private final PersonRepository repository;
 
     public PersonService (PersonRepository repository) {
         this.repository = repository;
@@ -25,6 +25,7 @@ public class PersonService {
         personEntity.setLastName(person.getLastName());
         personEntity.setSex(person.getSex());
         personEntity.setDateOfBirth(person.getDateOfBirth());
+        personEntity.setStatus(VaccinationStatus.NONE);
         return this.repository.save(personEntity);
     }
 
