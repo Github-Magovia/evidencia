@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Service
 public class VaccineService {
-
     private VaccineRepository repository;
 
     public VaccineService (VaccineRepository repository) {
@@ -24,6 +23,7 @@ public class VaccineService {
         vaccineEntity.setType(vaccine.getType());
         vaccineEntity.setAmountOfVaccines(vaccine.getAmountOfVaccines());
         vaccineEntity.setAmountToCompleteVaccination(vaccine.getAmountToCompleteVaccination());
+        vaccineEntity.setDaysToFullVaccination(vaccine.getDaysToFullVaccination());
         return this.repository.save(vaccineEntity);
     }
 
@@ -31,11 +31,13 @@ public class VaccineService {
     public List<VaccineEntity> getVaccines(){
         return repository.findAll();
     }
+
     // podla id
     public VaccineEntity getVaccineById(Long vaccineId){
         Optional<VaccineEntity> vaccine = repository.findById(vaccineId);
         return vaccine.orElse(null);
     }
+
     //update
     public VaccineEntity updateVaccine(Long vaccineId, VaccineDto vaccine){
         Optional<VaccineEntity> v = repository.findById(vaccineId);
@@ -44,6 +46,7 @@ public class VaccineService {
             v.get().setType(vaccine.getType());
             v.get().setAmountOfVaccines(vaccine.getAmountOfVaccines());
             v.get().setAmountToCompleteVaccination(vaccine.getAmountToCompleteVaccination());
+            v.get().setDaysToFullVaccination(vaccine.getDaysToFullVaccination());
             return repository.save(v.get());
         }
         return null;

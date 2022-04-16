@@ -12,6 +12,7 @@ public class VaccineEntity {
     private String name;
     private String type;
     private Integer amountToCompleteVaccination;
+    private Integer daysToFullVaccination;
     private Integer amountOfVaccines;
 
 
@@ -45,6 +46,14 @@ public class VaccineEntity {
 
     public void setAmountToCompleteVaccination(Integer amountToCompleteVaccination) {
         this.amountToCompleteVaccination = amountToCompleteVaccination;
+    }
+
+    public Integer getDaysToFullVaccination() {
+        return daysToFullVaccination;
+    }
+
+    public void setDaysToFullVaccination(Integer daysToFullVaccination) {
+        this.daysToFullVaccination = daysToFullVaccination;
     }
 
     public Integer getAmountOfVaccines() {
