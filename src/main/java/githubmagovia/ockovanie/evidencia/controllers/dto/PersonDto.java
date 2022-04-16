@@ -1,12 +1,15 @@
 package githubmagovia.ockovanie.evidencia.controllers.dto;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 
 public class PersonDto {
     private long id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateOfBirth;
     private String sex; //pohlavie
 
     public long getId() {
@@ -33,11 +36,11 @@ public class PersonDto {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

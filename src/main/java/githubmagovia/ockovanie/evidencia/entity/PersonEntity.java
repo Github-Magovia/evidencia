@@ -1,19 +1,20 @@
 package githubmagovia.ockovanie.evidencia.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class PersonEntity {
-    // atributy
     @Id
     @GeneratedValue
     private long id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    @Column(columnDefinition = "DATE")
+    private LocalDate dateOfBirth;
     private String sex;
 
 
@@ -41,11 +42,11 @@ public class PersonEntity {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
