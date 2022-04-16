@@ -1,5 +1,9 @@
 package githubmagovia.ockovanie.evidencia.controllers.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
+
 public class VaccinationDto {
     private long id;
     private long idPerson;
@@ -7,6 +11,8 @@ public class VaccinationDto {
     private String firstName;
     private String lastName;
     private String type;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dateOfVaccination;
 
     public long getIdPerson() {
         return idPerson;
@@ -54,5 +60,13 @@ public class VaccinationDto {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public LocalDateTime getDateOfVaccination() {
+        return dateOfVaccination;
+    }
+
+    public void setDateOfVaccination(LocalDateTime dateOfVaccination) {
+        this.dateOfVaccination = dateOfVaccination;
     }
 }

@@ -36,7 +36,8 @@ public class VaccinationService {
         if (person != null && vaccine != null){
             vaccination.setPerson(person);
             vaccination.setVaccine(vaccine);
-            return  vaccinationRepository.save(vaccination);
+            vaccination.setDateOfVaccination(request.getDateOfVaccination());
+            return vaccinationRepository.save(vaccination);
         }
         return null;
     }
@@ -57,6 +58,7 @@ public class VaccinationService {
         }
         return null;
     }*/
+
     //delete vaccination service
     public void deleteVaccination(long vaccinationId){
         vaccinationRepository.deleteById(vaccinationId);

@@ -15,9 +15,9 @@ import java.util.List;
 
 @RestController
 public class VaccinationController {
-    private  VaccinationService vaccinationService;
-    private VaccineService vaccineService;
-    private  PersonService personService;
+    private final VaccinationService vaccinationService;
+    private final VaccineService vaccineService;
+    private final PersonService personService;
 
     public VaccinationController(VaccinationService vaccinationService, PersonService personService, VaccineService vaccineService) {
         this.vaccinationService = vaccinationService;
@@ -52,7 +52,6 @@ public class VaccinationController {
     }
 
     //maps VaccinationEntity into VaccinationDto
-    // TODO
     private VaccinationDto mapToDto(VaccinationEntity entity){
         VaccinationDto vaccinationDto = new VaccinationDto();
         VaccineEntity vaccine = entity.getVaccine();
@@ -61,6 +60,7 @@ public class VaccinationController {
         vaccinationDto.setFirstName(person.getFirstName());
         vaccinationDto.setLastName(person.getLastName());
         vaccinationDto.setType(vaccine.getType());
+        vaccinationDto.setDateOfVaccination(entity.getDateOfVaccination());
         return vaccinationDto;
 
     }
