@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 public class PersonController {
-    private PersonService service;
+    private final PersonService service;
 
     public PersonController(PersonService service){
         this.service = service;
@@ -54,6 +54,9 @@ public class PersonController {
         personDto.setLastName(entity.getLastName());
         personDto.setSex(entity.getSex());
         personDto.setDateOfBirth(entity.getDateOfBirth());
+        personDto.setStatus(entity.getStatus());
+        personDto.setVaccineStart(entity.getVaccineStart());
+        personDto.setVaccineEnd(entity.getVaccineEnd());
         return personDto;
     }
 

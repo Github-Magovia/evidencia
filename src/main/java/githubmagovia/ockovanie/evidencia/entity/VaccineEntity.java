@@ -12,7 +12,9 @@ public class VaccineEntity {
     private String name;
     private String type;
     private Integer amountToCompleteVaccination;
+    private Integer daysToFullVaccination;
     private Integer amountOfVaccines;
+    private Integer durationOfVaccine;
 
 
     public long getId() {
@@ -47,6 +49,14 @@ public class VaccineEntity {
         this.amountToCompleteVaccination = amountToCompleteVaccination;
     }
 
+    public Integer getDaysToFullVaccination() {
+        return daysToFullVaccination;
+    }
+
+    public void setDaysToFullVaccination(Integer daysToFullVaccination) {
+        this.daysToFullVaccination = daysToFullVaccination;
+    }
+
     public Integer getAmountOfVaccines() {
         return amountOfVaccines;
     }
@@ -54,4 +64,14 @@ public class VaccineEntity {
     public void setAmountOfVaccines(Integer amountOfVaccines) {
         this.amountOfVaccines = amountOfVaccines;
     }
+
+    public Integer getDurationOfVaccine() {
+        return durationOfVaccine;
+    }
+
+    public void setDurationOfVaccine(Integer durationOfVaccine) {
+        this.durationOfVaccine = durationOfVaccine;
+    }
+
+    public void decrementAmountOfVaccines() { this.amountOfVaccines--; }
 }

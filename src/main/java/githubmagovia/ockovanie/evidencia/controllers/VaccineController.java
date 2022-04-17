@@ -10,8 +10,7 @@ import java.util.List;
 
 @RestController
 public class VaccineController {
-
-    private VaccineService service;
+    private final VaccineService service;
 
     public VaccineController(VaccineService service){
         this.service = service;
@@ -49,13 +48,15 @@ public class VaccineController {
 
     //mapToDto
     private VaccineDto mapToDto(VaccineEntity entity){
-        VaccineDto VaccineDto = new VaccineDto();
-        VaccineDto.setId(entity.getId());
-        VaccineDto.setName(entity.getName());
-        VaccineDto.setType(entity.getType());
-        VaccineDto.setAmountOfVaccines(entity.getAmountOfVaccines());
-        VaccineDto.setAmountToCompleteVaccination(entity.getAmountToCompleteVaccination());
-        return VaccineDto;
+        VaccineDto vaccineDto = new VaccineDto();
+        vaccineDto.setId(entity.getId());
+        vaccineDto.setName(entity.getName());
+        vaccineDto.setType(entity.getType());
+        vaccineDto.setAmountOfVaccines(entity.getAmountOfVaccines());
+        vaccineDto.setAmountToCompleteVaccination(entity.getAmountToCompleteVaccination());
+        vaccineDto.setDaysToFullVaccination(entity.getDaysToFullVaccination());
+        vaccineDto.setdurationOfVaccine(entity.getDurationOfVaccine());
+        return vaccineDto;
     }
 
 }

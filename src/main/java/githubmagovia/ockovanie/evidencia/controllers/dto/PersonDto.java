@@ -1,13 +1,23 @@
 package githubmagovia.ockovanie.evidencia.controllers.dto;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import githubmagovia.ockovanie.evidencia.domain.models.Gender;
+import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
+
+import java.time.LocalDate;
 
 public class PersonDto {
     private long id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
-    private String sex; //pohlavie
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateOfBirth;
+    private Gender sex;
+    private VaccinationStatus status;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate vaccineStart;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate vaccineEnd;
 
     public long getId() {
         return id;
@@ -33,19 +43,43 @@ public class PersonDto {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getSex() {
+    public Gender getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Gender sex) {
         this.sex = sex;
+    }
+
+    public VaccinationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(VaccinationStatus status) {
+        this.status = status;
+    }
+
+    public LocalDate getVaccineStart() {
+        return vaccineStart;
+    }
+
+    public void setVaccineStart(LocalDate vaccineStart) {
+        this.vaccineStart = vaccineStart;
+    }
+
+    public LocalDate getVaccineEnd() {
+        return vaccineEnd;
+    }
+
+    public void setVaccineEnd(LocalDate vaccineEnd) {
+        this.vaccineEnd = vaccineEnd;
     }
 }
