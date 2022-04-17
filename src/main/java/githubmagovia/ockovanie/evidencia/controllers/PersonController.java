@@ -55,6 +55,8 @@ public class PersonController {
         personDto.setSex(entity.getSex());
         personDto.setDateOfBirth(entity.getDateOfBirth());
         personDto.setStatus(entity.getStatus());
+        personDto.setVaccineStart(entity.getVaccineStart());
+        personDto.setVaccineEnd(entity.getVaccineEnd());
         return personDto;
     }
 

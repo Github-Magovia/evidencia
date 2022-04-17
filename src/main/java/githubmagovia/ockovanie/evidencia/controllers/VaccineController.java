@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 public class VaccineController {
-    private VaccineService service;
+    private final VaccineService service;
 
     public VaccineController(VaccineService service){
         this.service = service;
@@ -55,6 +55,7 @@ public class VaccineController {
         vaccineDto.setAmountOfVaccines(entity.getAmountOfVaccines());
         vaccineDto.setAmountToCompleteVaccination(entity.getAmountToCompleteVaccination());
         vaccineDto.setDaysToFullVaccination(entity.getDaysToFullVaccination());
+        vaccineDto.setdurationOfVaccine(entity.getDurationOfVaccine());
         return vaccineDto;
     }
 

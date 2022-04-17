@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class VaccineService {
-    private VaccineRepository repository;
+    private final VaccineRepository repository;
 
     public VaccineService (VaccineRepository repository) {
         this.repository = repository;
@@ -24,6 +24,7 @@ public class VaccineService {
         vaccineEntity.setAmountOfVaccines(vaccine.getAmountOfVaccines());
         vaccineEntity.setAmountToCompleteVaccination(vaccine.getAmountToCompleteVaccination());
         vaccineEntity.setDaysToFullVaccination(vaccine.getDaysToFullVaccination());
+        vaccineEntity.setDurationOfVaccine(vaccine.getdurationOfVaccine());
         return this.repository.save(vaccineEntity);
     }
 

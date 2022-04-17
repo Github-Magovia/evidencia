@@ -7,6 +7,7 @@ public class VaccineDto {
     private Integer amountOfVaccines;
     private Integer amountToCompleteVaccination;
     private Integer daysToFullVaccination;
+    private Integer durationOfVaccine;
 
     public long getId() {
         return id;
@@ -54,5 +55,13 @@ public class VaccineDto {
 
     public void setDaysToFullVaccination(Integer daysToFullVaccination) {
         this.daysToFullVaccination = daysToFullVaccination;
+    }
+
+    public Integer getdurationOfVaccine() {
+        return durationOfVaccine;
+    }
+
+    public void setdurationOfVaccine(Integer daysUntilStatusLost) {
+        this.durationOfVaccine = daysUntilStatusLost;
     }
 }
