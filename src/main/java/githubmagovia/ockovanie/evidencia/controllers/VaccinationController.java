@@ -55,6 +55,8 @@ public class VaccinationController {
         PersonEntity person = entity.getPerson();
         vaccinationDto.setId(entity.getId());
         vaccinationDto.setFirstName(person.getFirstName());
+        vaccinationDto.setIdVaccine(vaccine.getId());
+        vaccinationDto.setIdPerson(person.getId());
         vaccinationDto.setLastName(person.getLastName());
         vaccinationDto.setType(vaccine.getType());
         vaccinationDto.setDateOfVaccination(entity.getDateOfVaccination());
