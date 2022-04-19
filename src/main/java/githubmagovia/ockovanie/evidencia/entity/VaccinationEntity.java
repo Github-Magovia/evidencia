@@ -2,6 +2,7 @@ package githubmagovia.ockovanie.evidencia.entity;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +17,7 @@ public class VaccinationEntity {
     @OneToOne
     private VaccineEntity vaccine;
     @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime dateOfVaccination;
+    private LocalDate dateOfVaccination;
     private int shotNumber;
 
     public int getShotNumber() {
@@ -51,11 +52,11 @@ public class VaccinationEntity {
         this.vaccine = vaccine;
     }
 
-    public LocalDateTime getDateOfVaccination() {
+    public LocalDate getDateOfVaccination() {
         return dateOfVaccination;
     }
 
-    public void setDateOfVaccination(LocalDateTime dateOfVaccination) {
+    public void setDateOfVaccination(LocalDate dateOfVaccination) {
         this.dateOfVaccination = dateOfVaccination;
     }
 }

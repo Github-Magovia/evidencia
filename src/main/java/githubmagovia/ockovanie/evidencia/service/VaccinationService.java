@@ -44,7 +44,7 @@ public class VaccinationService {
             vaccination.setShotNumber(numberOfVaccinations);
             vaccination.setDateOfVaccination(request.getDateOfVaccination());
             processDurationOfVaccine(person,
-                    request.getDateOfVaccination().toLocalDate(),
+                    request.getDateOfVaccination(),
                     vaccine.getDaysToFullVaccination(),
                     vaccine.getDurationOfVaccine(),
                     numberOfVaccinations,
