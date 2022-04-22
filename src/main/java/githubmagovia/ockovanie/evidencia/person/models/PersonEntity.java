@@ -1,7 +1,6 @@
-package githubmagovia.ockovanie.evidencia.entity;
+package githubmagovia.ockovanie.evidencia.person.models;
 
-import githubmagovia.ockovanie.evidencia.domain.models.Gender;
-import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
+import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,9 +1,11 @@
-package githubmagovia.ockovanie.evidencia.entity;
+package githubmagovia.ockovanie.evidencia.vaccination.models;
 
+
+import githubmagovia.ockovanie.evidencia.vaccine.models.VaccineEntity;
+import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 public class VaccinationEntity {

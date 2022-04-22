@@ -1,13 +1,21 @@
-package githubmagovia.ockovanie.evidencia.controllers.dto;
+package githubmagovia.ockovanie.evidencia.vaccine.models;
 
-public class VaccineDto {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class VaccineEntity {
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private String type;
-    private Integer amountOfVaccines;
     private Integer amountToCompleteVaccination;
     private Integer daysToFullVaccination;
+    private Integer amountOfVaccines;
     private Integer durationOfVaccine;
+
 
     public long getId() {
         return id;
@@ -33,14 +41,6 @@ public class VaccineDto {
         this.type = type;
     }
 
-    public Integer getAmountOfVaccines() {
-        return amountOfVaccines;
-    }
-
-    public void setAmountOfVaccines(Integer amountOfVaccines) {
-        this.amountOfVaccines = amountOfVaccines;
-    }
-
     public Integer getAmountToCompleteVaccination() {
         return amountToCompleteVaccination;
     }
@@ -57,11 +57,21 @@ public class VaccineDto {
         this.daysToFullVaccination = daysToFullVaccination;
     }
 
-    public Integer getdurationOfVaccine() {
+    public Integer getAmountOfVaccines() {
+        return amountOfVaccines;
+    }
+
+    public void setAmountOfVaccines(Integer amountOfVaccines) {
+        this.amountOfVaccines = amountOfVaccines;
+    }
+
+    public Integer getDurationOfVaccine() {
         return durationOfVaccine;
     }
 
-    public void setdurationOfVaccine(Integer daysUntilStatusLost) {
-        this.durationOfVaccine = daysUntilStatusLost;
+    public void setDurationOfVaccine(Integer durationOfVaccine) {
+        this.durationOfVaccine = durationOfVaccine;
     }
+
+    public void decrementAmountOfVaccines() { this.amountOfVaccines--; }
 }

@@ -1,8 +1,8 @@
-package githubmagovia.ockovanie.evidencia.controllers.dto;
+package githubmagovia.ockovanie.evidencia.person.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import githubmagovia.ockovanie.evidencia.domain.models.Gender;
-import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
+import githubmagovia.ockovanie.evidencia.person.models.Gender;
+import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
 
 import java.time.LocalDate;
 

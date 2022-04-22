@@ -1,4 +1,4 @@
-package githubmagovia.ockovanie.evidencia.controllers.dto;
+package githubmagovia.ockovanie.evidencia.vaccination.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

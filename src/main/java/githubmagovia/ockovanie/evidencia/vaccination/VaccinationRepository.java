@@ -1,7 +1,7 @@
-package githubmagovia.ockovanie.evidencia.domain.repositories;
+package githubmagovia.ockovanie.evidencia.vaccination;
 
-import githubmagovia.ockovanie.evidencia.entity.PersonEntity;
-import githubmagovia.ockovanie.evidencia.entity.VaccinationEntity;
+import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
+import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

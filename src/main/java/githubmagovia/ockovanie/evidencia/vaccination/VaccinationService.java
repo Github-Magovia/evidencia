@@ -1,15 +1,17 @@
-package githubmagovia.ockovanie.evidencia.service;
+package githubmagovia.ockovanie.evidencia.vaccination;
 
 
-import githubmagovia.ockovanie.evidencia.controllers.dto.VaccinationDto;
-import githubmagovia.ockovanie.evidencia.domain.models.VaccinationStatus;
-import githubmagovia.ockovanie.evidencia.domain.repositories.VaccinationRepository;
-import githubmagovia.ockovanie.evidencia.entity.PersonEntity;
-import githubmagovia.ockovanie.evidencia.entity.VaccinationEntity;
-import githubmagovia.ockovanie.evidencia.entity.VaccineEntity;
+import githubmagovia.ockovanie.evidencia.vaccination.dto.VaccinationDto;
+import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
+import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
+import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationEntity;
+import githubmagovia.ockovanie.evidencia.vaccine.models.VaccineEntity;
+import githubmagovia.ockovanie.evidencia.person.PersonService;
+import githubmagovia.ockovanie.evidencia.vaccine.VaccineService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,16 +27,19 @@ public class VaccinationService {
         this.vaccineService = vaccineService;
     }
 
-    // get list of vaccinations
-    public List<VaccinationEntity> getVaccinations(){
-        return vaccinationRepository.findAll();
+    public List<VaccinationDto> getVaccinations(){
+        List<VaccinationEntity> vaccinations = vaccinationRepository.findAll();
+        List<VaccinationDto> result = new ArrayList<>();
+        for (VaccinationEntity entity : vaccinations) {
+            result.add(mapToDto(entity));
+        }
+        return result;
     }
 
-    // create - post vaccination
-    public VaccinationEntity createVaccination(VaccinationDto request){
+    public VaccinationDto createVaccination(VaccinationDto request){
         VaccinationEntity vaccination = new VaccinationEntity();
-        PersonEntity person = personService.getPersonById(request.getIdPerson());
-        VaccineEntity vaccine = vaccineService.getVaccineById(request.getIdVaccine());
+        PersonEntity person = personService.getEntityById(request.getIdPerson());
+        VaccineEntity vaccine = vaccineService.getEntityById(request.getIdVaccine());
         // TODO throw exception when vaccines amount == 0
         if (person != null && vaccine != null) {
             int numberOfVaccinations = vaccinationRepository.findAllByPersonEquals(person).size() + 1;
@@ -51,18 +56,17 @@ public class VaccinationService {
                     amountToComplete);
             vaccine.decrementAmountOfVaccines();
             person.setStatus(processNewStatus(numberOfVaccinations, amountToComplete));
-            return vaccinationRepository.save(vaccination);
+            return mapToDto(vaccinationRepository.save(vaccination));
         }
         return null;
     }
 
-     // get vaccination by id
-    public VaccinationEntity getVaccinationById(long vaccinationId){
+    public VaccinationDto getVaccinationById(long vaccinationId){
         Optional<VaccinationEntity> vaccination = vaccinationRepository.findById(vaccinationId);
-        return vaccination.orElse(null);
+        return vaccination.map(this::mapToDto).orElse(null);
     }
 
-   /* // update vaccination
+   /* // todo update vaccination
     public VaccinationEntity updateVaccinationById(long vaccinationId, VaccinationEntity entity){
         VaccinationEntity vaccination = this.getVaccinationById(vaccinationId);
         if (vaccination != null){
@@ -75,7 +79,6 @@ public class VaccinationService {
         return null;
     }*/
 
-    // delete vaccination service
     public void deleteVaccination(long vaccinationId){
         vaccinationRepository.deleteById(vaccinationId);
     }
@@ -87,7 +90,6 @@ public class VaccinationService {
         return VaccinationStatus.BOOSTER;
     }
 
-    // sets the date when FULL and BOOSTER vaccinations start and expire
     private void processDurationOfVaccine(PersonEntity person,
                                           LocalDate start,
                                           int startOffset,
@@ -101,5 +103,19 @@ public class VaccinationService {
             person.setVaccineStart(null);
             person.setVaccineEnd(null);
         }
+    }
+
+    private VaccinationDto mapToDto(VaccinationEntity entity){
+        VaccinationDto vaccinationDto = new VaccinationDto();
+        VaccineEntity vaccine = entity.getVaccine();
+        PersonEntity person = entity.getPerson();
+        vaccinationDto.setId(entity.getId());
+        vaccinationDto.setFirstName(person.getFirstName());
+        vaccinationDto.setIdVaccine(vaccine.getId());
+        vaccinationDto.setIdPerson(person.getId());
+        vaccinationDto.setLastName(person.getLastName());
+        vaccinationDto.setType(vaccine.getType());
+        vaccinationDto.setDateOfVaccination(entity.getDateOfVaccination());
+        return vaccinationDto;
     }
 }
