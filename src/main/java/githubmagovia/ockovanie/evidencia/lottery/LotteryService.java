@@ -5,6 +5,7 @@ import githubmagovia.ockovanie.evidencia.lottery.dto.LotteryDto;
 import githubmagovia.ockovanie.evidencia.lottery.models.LotteryEntity;
 import githubmagovia.ockovanie.evidencia.person.PersonService;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+@EnableScheduling
 @Service
 public class LotteryService {
     private final LotteryRepository repository;
