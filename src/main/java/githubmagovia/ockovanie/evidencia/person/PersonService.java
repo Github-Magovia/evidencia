@@ -61,6 +61,10 @@ public class PersonService {
         repository.deleteById(personId);
     }
 
+    public List<PersonEntity> getAllFullyVaccinated() {
+        return repository.getAllByStatusGreaterThan(VaccinationStatus.PARTIAL);
+    }
+
     private PersonDto mapToDto(PersonEntity entity){
         PersonDto personDto = new PersonDto();
         personDto.setId(entity.getId());
