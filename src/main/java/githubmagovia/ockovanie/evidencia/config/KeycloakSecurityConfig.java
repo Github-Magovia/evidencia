@@ -4,6 +4,7 @@ import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticatio
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
@@ -34,13 +35,22 @@ class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.csrf().disable()
-                .antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+                http.csrf().disable()
+                    .antMatcher("/**")
+                    .authorizeRequests()
+                    .antMatchers("/api/vaccinations*")
+                    .hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/**")
+                    .hasRole("ADMIN")
+                    .antMatchers(HttpMethod.PUT, "/**")
+                    .hasRole("ADMIN")
+                    .regexMatchers(HttpMethod.GET, "/api/people/\\d+")
+                    .hasRole("ADMIN")
+                    .regexMatchers(HttpMethod.GET, "/api/vaccines/\\d+")
+                    .hasRole("ADMIN")
+                    .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated();
     }
-
 }
