@@ -18,17 +18,16 @@ services:
       - logs:/var/log/postgresql
 
   keycloak:
-    image: jboss/keycloak:4.8.3.Final
+    image: jboss/keycloak:16.1.1
     restart: on-failure
     command:
-      - "-b"
-      - "0.0.0.0"
+      - "-b 0.0.0.0"
       - "-Dkeycloak.migration.action=import"
-      - "-Dkeycloak.migration.provider=dir"
-      - "-Dkeycloak.migration.dir=/config/"
-      - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
+      - "-Dkeycloak.migration.provider=singleFile"
+      - "-Dkeycloak.migration.file=/tmp/realm-export.json"
+      - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
     volumes:
-      - ./config:/config/
+      - ./imports/realm-export.json:/tmp/realm-export.json
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
