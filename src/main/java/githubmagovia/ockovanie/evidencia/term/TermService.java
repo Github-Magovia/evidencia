@@ -95,6 +95,7 @@ public class TermService {
         termDto.setId(entity.getId());
         termDto.setVaccinationCentre(entity.getVaccinationCentre());
         termDto.setDateOfVaccination(entity.getDateOfVaccination());
+        termDto.setPersonId(person.getId());
         termDto.setPersonName(person.getFirstName() + " " + person.getLastName());
         termDto.setVaccineName(entity.getVaccine().getName());
         return termDto;
