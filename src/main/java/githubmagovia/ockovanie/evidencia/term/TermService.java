@@ -22,7 +22,7 @@ public class TermService {
     public TermDto createTerm(TermDto term){
         TermEntity TermEntity = new TermEntity();
         TermEntity.setVaccinationCentre(term.getVaccinationCentre());
-        TermEntity.setDateOfVaccination(term.setDateOfVaccination());
+        TermEntity.setDateOfVaccination(term.getDateOfVaccination());
         return mapToDto(this.repository.save(TermEntity));
     }
     public List<TermDto> getTerms(){
@@ -42,7 +42,7 @@ public class TermService {
         Optional<TermEntity> t = repository.findById(termId);
         if(t.isPresent()){
             t.get().setVaccinationCentre(term.getVaccinationCentre());
-            t.get().setDateOfVaccination();
+            t.get().setDateOfVaccination(term.getDateOfVaccination());
             return mapToDto(repository.save(t.get()));
         }
         return null;
