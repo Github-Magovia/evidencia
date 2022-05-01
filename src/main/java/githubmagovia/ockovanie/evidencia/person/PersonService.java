@@ -77,4 +77,8 @@ public class PersonService {
         personDto.setVaccineEnd(entity.getVaccineEnd());
         return personDto;
     }
+
+    public void updateVaccinationDetails(PersonEntity person) {
+        this.repository.save(person);
+    }
 }

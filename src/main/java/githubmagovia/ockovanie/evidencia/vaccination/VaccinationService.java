@@ -42,7 +42,7 @@ public class VaccinationService {
         VaccineEntity vaccine = vaccineService.getEntityById(request.getIdVaccine());
         // TODO throw exception when vaccines amount == 0
         if (person != null && vaccine != null) {
-            int numberOfVaccinations = vaccinationRepository.findAllByPersonEquals(person).size() + 1;
+            int numberOfVaccinations = getVaccinationsByPersonId(person).size() + 1;
             int amountToComplete = vaccine.getAmountToCompleteVaccination();
             vaccination.setPerson(person);
             vaccination.setVaccine(vaccine);
@@ -56,6 +56,7 @@ public class VaccinationService {
                     amountToComplete);
             vaccine.decrementAmountOfVaccines();
             person.setStatus(processNewStatus(numberOfVaccinations, amountToComplete));
+            personService.updateVaccinationDetails(person);
             return mapToDto(vaccinationRepository.save(vaccination));
         }
         return null;
@@ -64,6 +65,10 @@ public class VaccinationService {
     public VaccinationDto getVaccinationById(long vaccinationId){
         Optional<VaccinationEntity> vaccination = vaccinationRepository.findById(vaccinationId);
         return vaccination.map(this::mapToDto).orElse(null);
+    }
+
+    public List<VaccinationEntity> getVaccinationsByPersonId(PersonEntity person) {
+        return vaccinationRepository.findAllByPersonEquals(person);
     }
 
    /* // todo update vaccination
