@@ -10,6 +10,9 @@ import java.time.LocalTime;
 
 public class TermDto {
     private long id;
+    private long personId;
+    private String vaccineName;
+    private String personName;
     private String vaccinationCentre;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateOfVaccination;
@@ -20,6 +23,30 @@ public class TermDto {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(long personId) {
+        this.personId = personId;
+    }
+
+    public String getVaccineName() {
+        return vaccineName;
+    }
+
+    public void setVaccineName(String vaccineName) {
+        this.vaccineName = vaccineName;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 
     public String getVaccinationCentre() {
