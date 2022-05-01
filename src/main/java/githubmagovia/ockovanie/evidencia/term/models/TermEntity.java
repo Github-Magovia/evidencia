@@ -2,7 +2,7 @@ package githubmagovia.ockovanie.evidencia.term.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Entity
 public class TermEntity {
@@ -10,10 +10,8 @@ public class TermEntity {
     @GeneratedValue
     private long id;
     private String vaccinationCentre;
-    @Column(columnDefinition = "DATE")
-    private LocalDate dateOfVaccination;
-    @Column(columnDefinition = "TIME")
-    private LocalTime timeOfVaccination;
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime dateOfVaccination;
 
     public long getId() {
         return id;
@@ -31,19 +29,11 @@ public class TermEntity {
         this.vaccinationCentre = vaccinationCentre;
     }
 
-    public LocalDate getDateOfVaccination() {
+    public LocalDateTime getDateOfVaccination() {
         return dateOfVaccination;
     }
 
-    public void setDateOfVaccination(LocalDate date) {
-        this.dateOfVaccination = date;
-    }
-
-    public LocalTime getTimeOfVaccination() {
-        return timeOfVaccination;
-    }
-
-    public void setTimeOfVaccination(LocalTime timeOfVaccination) {
-        this.timeOfVaccination = timeOfVaccination;
+    public void setDateOfVaccination(LocalDateTime dateOfVaccination) {
+        this.dateOfVaccination = dateOfVaccination;
     }
 }

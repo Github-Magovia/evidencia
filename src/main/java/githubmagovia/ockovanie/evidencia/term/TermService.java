@@ -22,8 +22,7 @@ public class TermService {
     public TermDto createTerm(TermDto term){
         TermEntity TermEntity = new TermEntity();
         TermEntity.setVaccinationCentre(term.getVaccinationCentre());
-        TermEntity.setDateOfVaccination(term.getDateOfVaccination());
-        TermEntity.setTimeOfVaccination(term.getTimeOfVaccination());
+        TermEntity.setDateOfVaccination(term.setDateOfVaccination());
         return mapToDto(this.repository.save(TermEntity));
     }
     public List<TermDto> getTerms(){
@@ -43,8 +42,7 @@ public class TermService {
         Optional<TermEntity> t = repository.findById(termId);
         if(t.isPresent()){
             t.get().setVaccinationCentre(term.getVaccinationCentre());
-            t.get().setDateOfVaccination(term.getDateOfVaccination());
-            t.get().setTimeOfVaccination(term.getTimeOfVaccination());
+            t.get().setDateOfVaccination();
             return mapToDto(repository.save(t.get()));
         }
         return null;
@@ -65,7 +63,6 @@ public class TermService {
         TermDto.setId(entity.getId());
         TermDto.setVaccinationCentre(entity.getVaccinationCentre());
         TermDto.setDateOfVaccination(entity.getDateOfVaccination());
-        TermDto.setTimeOfVaccination(entity.getTimeOfVaccination());
         return TermDto;
     }
 }
