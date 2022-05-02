@@ -11,4 +11,6 @@ import java.util.List;
 public interface VaccinationRepository extends JpaRepository<VaccinationEntity, Long> {
 
     List<VaccinationEntity> findAllByPersonEquals(PersonEntity person);
+
+    VaccinationEntity findFirstByPersonEqualsOrderByShotNumberDesc(PersonEntity person);
 }

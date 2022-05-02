@@ -42,7 +42,7 @@ public class VaccinationService {
         VaccineEntity vaccine = vaccineService.getEntityById(request.getIdVaccine());
         // TODO throw exception when vaccines amount == 0
         if (person != null && vaccine != null) {
-            int numberOfVaccinations = vaccinationRepository.findAllByPersonEquals(person).size() + 1;
+            int numberOfVaccinations = getVaccinationsByPersonId(person).size() + 1;
             int amountToComplete = vaccine.getAmountToCompleteVaccination();
             vaccination.setPerson(person);
             vaccination.setVaccine(vaccine);
@@ -56,6 +56,7 @@ public class VaccinationService {
                     amountToComplete);
             vaccine.decrementAmountOfVaccines();
             person.setStatus(processNewStatus(numberOfVaccinations, amountToComplete));
+            personService.updateVaccinationDetails(person);
             return mapToDto(vaccinationRepository.save(vaccination));
         }
         return null;
@@ -64,6 +65,10 @@ public class VaccinationService {
     public VaccinationDto getVaccinationById(long vaccinationId){
         Optional<VaccinationEntity> vaccination = vaccinationRepository.findById(vaccinationId);
         return vaccination.map(this::mapToDto).orElse(null);
+    }
+
+    public List<VaccinationEntity> getVaccinationsByPersonId(PersonEntity person) {
+        return vaccinationRepository.findAllByPersonEquals(person);
     }
 
    /* // todo update vaccination
@@ -80,7 +85,33 @@ public class VaccinationService {
     }*/
 
     public void deleteVaccination(long vaccinationId){
-        vaccinationRepository.deleteById(vaccinationId);
+        VaccinationEntity removed = vaccinationRepository.getById(vaccinationId);
+        PersonEntity person = removed.getPerson();
+        List<VaccinationEntity> vaccinations = vaccinationRepository.findAllByPersonEquals(person);
+        int index = vaccinations.indexOf(removed);
+        if (vaccinations.size() > 1) {
+            VaccinationEntity item;
+            for (int i = index + 1; i < vaccinations.size(); i++) {
+                item = vaccinations.get(i);
+                item.setShotNumber(item.getShotNumber() - 1);
+                vaccinationRepository.save(item);
+            }
+            vaccinationRepository.delete(removed);
+            item = vaccinationRepository.findFirstByPersonEqualsOrderByShotNumberDesc(person);
+            processDurationOfVaccine(person,
+                    item.getDateOfVaccination(),
+                    item.getVaccine().getDaysToFullVaccination(),
+                    item.getVaccine().getDurationOfVaccine(),
+                    item.getShotNumber(),
+                    item.getVaccine().getAmountToCompleteVaccination());
+            person.setStatus(processNewStatus(item.getShotNumber(),
+                    item.getVaccine().getAmountToCompleteVaccination()));
+        } else {
+            vaccinationRepository.delete(removed);
+            processDurationOfVaccine(person, null, 1, 1, 0, 1);
+            person.setStatus(processNewStatus(0, 1));
+        }
+        personService.updateVaccinationDetails(person);
     }
 
     private VaccinationStatus processNewStatus(int numberOfVaccinations, int requiredAmount) {
