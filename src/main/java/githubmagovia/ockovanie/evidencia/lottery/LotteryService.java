@@ -30,12 +30,13 @@ public class LotteryService {
     public void addWinner(){
         LotteryEntity lottery = new LotteryEntity();
         List<PersonEntity> candidates = personService.getAllFullyVaccinated();
+        if(!candidates.isEmpty()){
         lottery.setPerson(candidates.get(ThreadLocalRandom.current().nextInt(0, candidates.size())));
         lottery.setAmount(10000);
         lottery.setDate(LocalDate.now());
         this.repository.save(lottery);
+        }
     }
-
     public List<LotteryDto> getPeople(){
         List<LotteryEntity> entities = repository.findAll();
         List<LotteryDto> result = new ArrayList<>();
