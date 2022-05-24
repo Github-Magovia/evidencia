@@ -5,6 +5,8 @@ import githubmagovia.ockovanie.evidencia.vaccine.models.VaccineEntity;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -18,8 +20,13 @@ public class VaccinationEntity {
 
     @OneToOne
     private VaccineEntity vaccine;
-    @Column(columnDefinition = "TIMESTAMP")
+
+    @NotNull(message = "dateOfVaccination is a mandatory field")
+    @Column(columnDefinition = "DATE")
     private LocalDate dateOfVaccination;
+
+    @NotNull(message = "amountOfVaccines is a mandatory field")
+    @Min(value = 0, message = "amountOfVaccines needs to be atleast 0")
     private int shotNumber;
 
     public int getShotNumber() {

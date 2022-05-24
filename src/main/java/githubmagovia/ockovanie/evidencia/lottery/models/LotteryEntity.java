@@ -3,6 +3,8 @@ package githubmagovia.ockovanie.evidencia.lottery.models;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -12,7 +14,9 @@ public class LotteryEntity {
     private long id;
     @OneToOne
     private PersonEntity person;
+    @Min(value = 1, message = "amount must be atleast 1")
     private int amount;
+    @NotNull(message = "date is a mandatory field")
     @Column(columnDefinition = "DATE")
     private LocalDate date;
 

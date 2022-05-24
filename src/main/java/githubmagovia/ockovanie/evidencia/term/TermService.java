@@ -1,5 +1,6 @@
 package githubmagovia.ockovanie.evidencia.term;
 
+import githubmagovia.ockovanie.evidencia.exceptions.ServerException;
 import githubmagovia.ockovanie.evidencia.person.PersonService;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
 import githubmagovia.ockovanie.evidencia.term.dto.TermDto;
@@ -105,6 +106,9 @@ public class TermService {
         if (vaccinations.size() <= 0) {
             // get random vaccine
             List<VaccineDto> vaccines = vaccineService.getVaccines();
+            if (vaccines.isEmpty()) {
+                throw new ServerException("There are no available vaccines to be assigned");
+            }
             return vaccineService.getEntityById(vaccines.get(ThreadLocalRandom.current().nextInt(0, vaccines.size())).getId());
         } else {
             // get the one already assigned

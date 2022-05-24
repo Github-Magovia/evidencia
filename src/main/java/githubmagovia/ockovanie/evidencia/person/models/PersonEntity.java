@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -13,10 +16,14 @@ public class PersonEntity {
     @Id
     @GeneratedValue
     private long id;
+    @NotBlank(message = "firstName is a mandatory field")
     private String firstName;
+    @NotBlank(message = "lastName is a mandatory field")
     private String lastName;
+    @NotNull(message = "dateOfBirth is a mandatory field")
     @Column(columnDefinition = "DATE")
     private LocalDate dateOfBirth;
+    @NotNull(message = "sex is a mandatory field")
     private Gender sex;
     private VaccinationStatus status;
     @Column(columnDefinition = "DATE")

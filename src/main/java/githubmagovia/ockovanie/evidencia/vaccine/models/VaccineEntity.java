@@ -3,17 +3,30 @@ package githubmagovia.ockovanie.evidencia.vaccine.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class VaccineEntity {
     @Id
     @GeneratedValue
     private long id;
+    @NotBlank(message = "Name is a mandatory field")
     private String name;
+    @NotBlank(message = "Type is a mandatory field")
     private String type;
+    @NotNull(message = "amountToCompleteVaccination is a mandatory field")
+    @Min(value = 1, message = "amountToCompleteVaccination needs to be atleast 1")
     private Integer amountToCompleteVaccination;
+    @NotNull(message = "daysToFullVaccination is a mandatory field")
+    @Min(value = 1, message = "daysToFullVaccination needs to be atleast 1")
     private Integer daysToFullVaccination;
+    @NotNull(message = "amountOfVaccines is a mandatory field")
+    @Min(value = 0, message = "amountOfVaccines needs to be atleast 0")
     private Integer amountOfVaccines;
+    @NotNull(message = "durationOfVaccine is a mandatory field")
+    @Min(value = 1, message = "durationOfVaccine needs to be atleast 1")
     private Integer durationOfVaccine;
 
 

@@ -1,6 +1,7 @@
 package githubmagovia.ockovanie.evidencia.vaccination;
 
 
+import githubmagovia.ockovanie.evidencia.exceptions.ServerException;
 import githubmagovia.ockovanie.evidencia.vaccination.dto.VaccinationDto;
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
@@ -40,8 +41,13 @@ public class VaccinationService {
         VaccinationEntity vaccination = new VaccinationEntity();
         PersonEntity person = personService.getEntityById(request.getIdPerson());
         VaccineEntity vaccine = vaccineService.getEntityById(request.getIdVaccine());
-        // TODO throw exception when vaccines amount == 0
-        if (person != null && vaccine != null) {
+        if (vaccine == null || vaccine.getAmountOfVaccines() <= 0) {
+            throw new ServerException("Vaccine is not available");
+        } else if (person == null) {
+            throw new ServerException("Person is not available");
+        } else if (request.getDateOfVaccination() == null) {
+            throw new ServerException("Date of vaccination is not available");
+        } else {
             int numberOfVaccinations = getVaccinationsByPersonId(person).size() + 1;
             int amountToComplete = vaccine.getAmountToCompleteVaccination();
             vaccination.setPerson(person);
@@ -59,7 +65,6 @@ public class VaccinationService {
             personService.updateVaccinationDetails(person);
             return mapToDto(vaccinationRepository.save(vaccination));
         }
-        return null;
     }
 
     public VaccinationDto getVaccinationById(long vaccinationId){
@@ -144,6 +149,7 @@ public class VaccinationService {
         vaccinationDto.setFirstName(person.getFirstName());
         vaccinationDto.setIdVaccine(vaccine.getId());
         vaccinationDto.setIdPerson(person.getId());
+        vaccinationDto.setVaccineName(vaccine.getName());
         vaccinationDto.setLastName(person.getLastName());
         vaccinationDto.setType(vaccine.getType());
         vaccinationDto.setDateOfVaccination(entity.getDateOfVaccination());

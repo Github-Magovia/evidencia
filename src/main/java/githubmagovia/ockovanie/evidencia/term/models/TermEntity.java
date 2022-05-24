@@ -4,7 +4,8 @@ import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
 import githubmagovia.ockovanie.evidencia.vaccine.models.VaccineEntity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +17,9 @@ public class TermEntity {
     private PersonEntity person;
     @OneToOne
     private VaccineEntity vaccine;
+    @NotBlank(message = "vaccinationCentre is a mandatory field")
     private String vaccinationCentre;
+    @NotNull(message = "dateOfVaccination is a mandatory field")
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime dateOfVaccination;
 

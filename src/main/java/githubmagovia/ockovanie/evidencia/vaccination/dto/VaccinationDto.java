@@ -3,12 +3,12 @@ package githubmagovia.ockovanie.evidencia.vaccination.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class VaccinationDto {
     private long id;
     private long idPerson;
     private long idVaccine;
+    private String vaccineName;
     private String firstName;
     private String lastName;
     private String type;
@@ -37,6 +37,14 @@ public class VaccinationDto {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getVaccineName() {
+        return vaccineName;
+    }
+
+    public void setVaccineName(String vaccineName) {
+        this.vaccineName = vaccineName;
     }
 
     public String getFirstName() {

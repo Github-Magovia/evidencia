@@ -1,6 +1,7 @@
 package githubmagovia.ockovanie.evidencia.lottery;
 
 
+import githubmagovia.ockovanie.evidencia.exceptions.ServerException;
 import githubmagovia.ockovanie.evidencia.lottery.dto.LotteryDto;
 import githubmagovia.ockovanie.evidencia.lottery.models.LotteryEntity;
 import githubmagovia.ockovanie.evidencia.person.PersonService;
@@ -31,10 +32,12 @@ public class LotteryService {
         LotteryEntity lottery = new LotteryEntity();
         List<PersonEntity> candidates = personService.getAllFullyVaccinated();
         if(!candidates.isEmpty()){
-        lottery.setPerson(candidates.get(ThreadLocalRandom.current().nextInt(0, candidates.size())));
-        lottery.setAmount(10000);
-        lottery.setDate(LocalDate.now());
-        this.repository.save(lottery);
+            lottery.setPerson(candidates.get(ThreadLocalRandom.current().nextInt(0, candidates.size())));
+            lottery.setAmount(10000);
+            lottery.setDate(LocalDate.now());
+            this.repository.save(lottery);
+        } else {
+            throw new ServerException("No valid candidates for lottery");
         }
     }
     public List<LotteryDto> getPeople(){

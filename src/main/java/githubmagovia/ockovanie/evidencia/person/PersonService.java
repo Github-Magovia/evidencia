@@ -1,6 +1,7 @@
 package githubmagovia.ockovanie.evidencia.person;
 
 
+import githubmagovia.ockovanie.evidencia.exceptions.ServerException;
 import githubmagovia.ockovanie.evidencia.person.dto.PersonDto;
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
@@ -48,8 +49,9 @@ public class PersonService {
             p.get().setSex(person.getSex());
             p.get().setDateOfBirth(person.getDateOfBirth());
             return mapToDto(repository.save(p.get()));
+        } else {
+            throw new ServerException("No person with ID \"" + personId + "\" was found");
         }
-        return null;
     }
 
     public PersonEntity getEntityById(Long personId) {

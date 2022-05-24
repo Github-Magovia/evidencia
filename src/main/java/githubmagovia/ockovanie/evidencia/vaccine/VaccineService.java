@@ -47,8 +47,9 @@ public class VaccineService {
             v.get().setName(vaccine.getName());
             v.get().setType(vaccine.getType());
             v.get().setAmountOfVaccines(vaccine.getAmountOfVaccines());
-            v.get().setAmountToCompleteVaccination(vaccine.getAmountToCompleteVaccination());
-            v.get().setDaysToFullVaccination(vaccine.getDaysToFullVaccination());
+            // TODO implement full update
+            //v.get().setAmountToCompleteVaccination(vaccine.getAmountToCompleteVaccination());
+            //v.get().setDaysToFullVaccination(vaccine.getDaysToFullVaccination());
             return mapToDto(repository.save(v.get()));
         }
         return null;
