@@ -32,7 +32,7 @@ public class PersonEntityTest {
     }
 
     @Test
-    public void savingUncompletePersonEntityShouldThrowException() {
+    public void savingIncompletePersonEntityShouldThrowException() {
         PersonEntity person = new PersonEntity();
         person.setFirstName("Mark");
         assertThatThrownBy(() -> personRepository.save(person));
