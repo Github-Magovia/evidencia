@@ -12,5 +12,7 @@ public interface VaccinationRepository extends JpaRepository<VaccinationEntity, 
 
     List<VaccinationEntity> findAllByPersonEquals(PersonEntity person);
 
+    List<VaccinationEntity> findAllByPersonId(Long id);
+
     VaccinationEntity findFirstByPersonEqualsOrderByShotNumberDesc(PersonEntity person);
 }
