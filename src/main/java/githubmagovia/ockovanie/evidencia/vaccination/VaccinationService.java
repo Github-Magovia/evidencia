@@ -76,6 +76,10 @@ public class VaccinationService {
         return vaccinationRepository.findAllByPersonEquals(person);
     }
 
+    public List<VaccinationEntity> getVaccinationsByPersonId(Long id) {
+        return vaccinationRepository.findAllByPersonId(id);
+    }
+
    /* // todo update vaccination
     public VaccinationEntity updateVaccinationById(long vaccinationId, VaccinationEntity entity){
         VaccinationEntity vaccination = this.getVaccinationById(vaccinationId);
