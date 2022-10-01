@@ -2,31 +2,48 @@ package githubmagovia.ockovanie.evidencia.person;
 
 import githubmagovia.ockovanie.evidencia.person.dto.PersonDto;
 import githubmagovia.ockovanie.evidencia.person.models.Gender;
+import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class PersonServiceTest {
 
-    @Autowired
+    @InjectMocks
     private PersonService personService;
+
+    @Mock
+    private PersonRepository personRepository;
 
     @Test
     public void correctAttributesAreSetForNewPersonEntity() {
-        PersonDto person = generateValidPersonDTO("Mark");
-        person = personService.createPerson(person);
-        assertThat(person.getStatus()).isEqualTo(VaccinationStatus.NONE);
-        assertThat(person.getVaccineStart()).isNull();
-        assertThat(person.getVaccineEnd()).isNull();
-        personService.deletePerson(person.getId());
+        Long generatedId = 1L;
+        PersonDto personDto = generateValidPersonDTO("Mark");
+        when(personRepository.save(any(PersonEntity.class))).thenReturn(buildFakePerson(generatedId, personDto));
+
+        PersonDto returnedDto = personService.createPerson(personDto);
+
+        assertThat(generatedId).isEqualTo(returnedDto.getId());
+        assertThat(returnedDto.getStatus()).isEqualTo(VaccinationStatus.NONE);
+        assertThat(returnedDto.getVaccineStart()).isNull();
+        assertThat(returnedDto.getVaccineEnd()).isNull();
+        verify(personRepository, times(1)).save(any());
     }
 
     @Test
@@ -34,12 +51,16 @@ public class PersonServiceTest {
         PersonDto person = generateValidPersonDTO("Thomas");
         person = personService.createPerson(person);
         assertThat(personService.getPersonById(person.getId()).getId()).isEqualTo(person.getId());
-        personService.deletePerson(person.getId());
     }
 
     @Test
     public void personWithNonexistentIdShouldReturnNull() {
+        PersonEntity fakePerson = buildFakePerson(1L, generateValidPersonDTO("Marcus"));
+        when(personRepository.findById(longThat(id -> id < 0))).thenReturn(Optional.empty());
+        when(personRepository.findById(longThat(id -> id >= 0))).thenReturn(Optional.of(fakePerson));
+
         assertThat(personService.getPersonById(-1L)).isNull();
+        assertThat(personService.getPersonById(0L)).isNotNull();
     }
 
     @Test
@@ -48,7 +69,6 @@ public class PersonServiceTest {
         person = personService.createPerson(person);
         person.setLastName("Jason");
         assertThat(personService.updatePerson(person.getId(), person).getLastName()).isEqualTo(person.getLastName());
-        personService.deletePerson(person.getId());
     }
 
     @Test
@@ -72,5 +92,11 @@ public class PersonServiceTest {
         person.setDateOfBirth(LocalDate.now());
         person.setSex(Gender.MALE);
         return person;
+    }
+
+    private PersonEntity buildFakePerson(Long generatedId, PersonDto dto) {
+        return PersonEntity.builder().id(generatedId).firstName(dto.getFirstName())
+                .lastName(dto.getLastName()).dateOfBirth(dto.getDateOfBirth())
+                .sex(dto.getSex()).status(VaccinationStatus.NONE).build();
     }
 }

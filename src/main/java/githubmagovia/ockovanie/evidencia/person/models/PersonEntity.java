@@ -1,6 +1,10 @@
 package githubmagovia.ockovanie.evidencia.person.models;
 
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +16,9 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PersonEntity {
     @Id
     @GeneratedValue
