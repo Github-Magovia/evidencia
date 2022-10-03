@@ -1,5 +1,6 @@
 package githubmagovia.ockovanie.evidencia.person;
 
+import githubmagovia.ockovanie.evidencia.exceptions.ServerException;
 import githubmagovia.ockovanie.evidencia.person.dto.PersonDto;
 import githubmagovia.ockovanie.evidencia.person.models.Gender;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
@@ -74,7 +75,7 @@ public class PersonServiceTest {
     @Test
     public void updatingNonexistentPersonEntityThrowsException() {
         PersonDto person = generateValidPersonDTO("Peter");
-        assertThatThrownBy(() -> personService.updatePerson(-1L, person));
+        assertThatThrownBy(() -> personService.updatePerson(-1L, person)).isExactlyInstanceOf(ServerException.class);
     }
 
     @Test
