@@ -5,21 +5,21 @@ import githubmagovia.ockovanie.evidencia.person.dto.PersonDto;
 import githubmagovia.ockovanie.evidencia.person.models.Gender;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -85,6 +85,24 @@ class PersonServiceTest {
 //        personService.deletePerson(person.getId());
 //        assertThat(personService.getPersonById(person.getId())).isNull();
 //    }
+    @Test
+    void findAndReturnAll() {
+        when(personRepository.findAll()).thenReturn(List.of(new PersonEntity(), new PersonEntity()));
+
+        assertThat(personRepository.findAll()).hasSize(2);
+        verify(personRepository, times(1)).findAll();
+        verifyNoMoreInteractions(personRepository);
+    }
+    @Test
+    void deleteOnePerson() {
+        doNothing().when(personRepository).deleteById(anyLong());
+
+        personService.deletePerson(getRandomLong());
+        verify(personRepository, times(1)).deleteById(anyLong());
+        verifyNoMoreInteractions(personRepository);
+    }
+
+
 
     private PersonDto generateValidPersonDTO(String lName) {
         PersonDto person = new PersonDto();
@@ -98,6 +116,11 @@ class PersonServiceTest {
     private PersonEntity buildFakePerson(Long generatedId, PersonDto dto) {
         return PersonEntity.builder().id(generatedId).firstName(dto.getFirstName())
                 .lastName(dto.getLastName()).dateOfBirth(dto.getDateOfBirth())
-                .sex(dto.getSex()).status(VaccinationStatus.NONE).build();
+                 .sex(dto.getSex()).status(VaccinationStatus.NONE).build();
+    }
+
+    private long getRandomLong() {
+        return new Random().longs(1, 10).findFirst().getAsLong();
     }
 }
+

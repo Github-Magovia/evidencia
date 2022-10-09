@@ -49,8 +49,9 @@ public class VaccineEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public VaccineEntity setName(String name) {
         this.name = name;
+        return null;
     }
 
     public String getType() {

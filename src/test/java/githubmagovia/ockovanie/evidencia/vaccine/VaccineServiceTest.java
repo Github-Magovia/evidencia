@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -36,6 +37,16 @@ class VaccineServiceTest {
         assertThat(returnedDto.getAmountToCompleteVaccination()).isEqualTo(5);
         verify(vaccineRepository, times(1)).save(any());
     }
+/*    @Test
+    void vaccineCreateFail() {
+        VaccineDto vaccine = new VaccineDto().setName("Vakcina");
+
+        IllegalArgumentException exception = (IllegalArgumentException.class, () -> vaccineService.createVaccine(vaccine));
+        assertEquals("Author or Title are empty fields", exception.getMessage());
+
+        verify(vaccineRepository, times(0)).save(any());
+
+    }*/
 
     private VaccineDto generateValidVaccineDTO(String name) {
         VaccineDto vaccine = new VaccineDto();
