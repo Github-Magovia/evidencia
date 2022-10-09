@@ -12,28 +12,28 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 
 @SpringBootTest
-public class PersonEntityTest {
+class PersonEntityTest {
 
-    @Autowired
-    private PersonRepository personRepository;
-
-    @Test
-    public void shouldSavePersonEntity() {
-        PersonEntity person = new PersonEntity();
-        person.setFirstName("Mark");
-        person.setLastName("Mark");
-        person.setSex(Gender.MALE);
-        person.setDateOfBirth(LocalDate.now());
-        person.setStatus(VaccinationStatus.NONE);
-        personRepository.save(person);
-        assertThat(person.getId()).isNotNull();
-        personRepository.deleteById(person.getId());
-    }
-
-    @Test
-    public void savingInvalidPersonEntityShouldThrowException() {
-        PersonEntity person = new PersonEntity();
-        person.setFirstName("Mark");
-        assertThatThrownBy(() -> personRepository.save(person));
-    }
+//    @Autowired
+//    private PersonRepository personRepository;
+//
+//    @Test
+//    void shouldSavePersonEntity() {
+//        PersonEntity person = new PersonEntity();
+//        person.setFirstName("Mark");
+//        person.setLastName("Mark");
+//        person.setSex(Gender.MALE);
+//        person.setDateOfBirth(LocalDate.now());
+//        person.setStatus(VaccinationStatus.NONE);
+//        personRepository.save(person);
+//        assertThat(person.getId()).isNotNull();
+//        personRepository.deleteById(person.getId());
+//    }
+//
+//    @Test
+//    void savingInvalidPersonEntityShouldThrowException() {
+//        PersonEntity person = new PersonEntity();
+//        person.setFirstName("Mark");
+//        assertThatThrownBy(() -> personRepository.save(person));
+//    }
 }
