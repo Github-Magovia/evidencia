@@ -7,6 +7,7 @@ import githubmagovia.ockovanie.evidencia.vaccination.dto.VaccinationDto;
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationEntity;
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
 import githubmagovia.ockovanie.evidencia.vaccine.VaccineRepository;
+import githubmagovia.ockovanie.evidencia.vaccine.dto.VaccineDto;
 import githubmagovia.ockovanie.evidencia.vaccine.models.VaccineEntity;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
@@ -21,6 +22,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 
 @SpringBootTest
 class VaccinationServiceTest {
