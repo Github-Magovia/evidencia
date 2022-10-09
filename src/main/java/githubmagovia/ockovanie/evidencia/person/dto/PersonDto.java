@@ -3,9 +3,15 @@ package githubmagovia.ockovanie.evidencia.person.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import githubmagovia.ockovanie.evidencia.person.models.Gender;
 import githubmagovia.ockovanie.evidencia.vaccination.models.VaccinationStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PersonDto {
     private long id;
     private String firstName;

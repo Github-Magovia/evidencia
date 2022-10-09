@@ -6,6 +6,7 @@ import githubmagovia.ockovanie.evidencia.lottery.dto.LotteryDto;
 import githubmagovia.ockovanie.evidencia.lottery.models.LotteryEntity;
 import githubmagovia.ockovanie.evidencia.person.PersonService;
 import githubmagovia.ockovanie.evidencia.person.models.PersonEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @EnableScheduling
 @Service
+@Slf4j
 public class LotteryService {
     private final LotteryRepository repository;
     private final PersonService personService;
@@ -37,7 +39,7 @@ public class LotteryService {
             lottery.setDate(LocalDate.now());
             this.repository.save(lottery);
         } else {
-            throw new ServerException("No valid candidates for lottery");
+            log.error("No valid candidates for lottery");
         }
     }
     public List<LotteryDto> getPeople(){
