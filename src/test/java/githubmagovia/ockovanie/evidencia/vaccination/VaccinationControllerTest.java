@@ -49,7 +49,7 @@ class VaccinationControllerTest {
         int bound = new Random().nextInt(20);
         List<VaccinationDto> vaccinationDtos = new ArrayList<>();
         for (int i = 0; i < bound; i++) {
-            vaccinationDtos.add(generateValidVaccinationDTO("Pavel" + i));
+            vaccinationDtos.add(generateValidVaccinationDTO("Pavel" + i, i));
         }
         when(vaccinationService.getVaccinations()).thenReturn(vaccinationDtos);
 
@@ -62,10 +62,10 @@ class VaccinationControllerTest {
         verify(vaccinationService, times(1)).getVaccinations();
     }
 
-    private VaccinationDto generateValidVaccinationDTO(String lName) {
+    private VaccinationDto generateValidVaccinationDTO(String vName, Integer id) {
         VaccinationDto vaccination = new VaccinationDto();
-        vaccination.setVaccineName("vakcina");
-        vaccination.setIdVaccine(1);
+        vaccination.setVaccineName(vName);
+        vaccination.setIdVaccine(id);
         return vaccination;
     }
 }

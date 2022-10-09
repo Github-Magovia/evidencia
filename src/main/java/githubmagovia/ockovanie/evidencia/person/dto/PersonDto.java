@@ -37,9 +37,8 @@ public class PersonDto {
         return firstName;
     }
 
-    public PersonDto setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return null;
     }
 
     public String getLastName() {

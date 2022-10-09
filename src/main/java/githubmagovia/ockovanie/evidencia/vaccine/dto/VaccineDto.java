@@ -28,9 +28,8 @@ public class VaccineDto {
         return name;
     }
 
-    public VaccineDto setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return null;
     }
 
     public String getType() {
