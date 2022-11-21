@@ -1,7 +1,7 @@
 version: "3.3"
 
 services:
-  library:
+  library-db:
     restart: always
     image: sameersbn/postgresql:10-2
     environment:
@@ -13,6 +13,24 @@ services:
       - PG_LOGDIR=/var/log/postgres
     ports:
       - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql
+      - logs:/var/log/postgresql
+
+  evidencia:
+    restart: always
+    image: magoviaimage:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - data:/var/lib/postgresql
+      - logs:/var/log/postgresql
+
+  evidencia-ui:
+    restart: always
+    image: evidencia-ui:latest
+    ports:
+      - "4200:4200"
     volumes:
       - data:/var/lib/postgresql
       - logs:/var/log/postgresql
