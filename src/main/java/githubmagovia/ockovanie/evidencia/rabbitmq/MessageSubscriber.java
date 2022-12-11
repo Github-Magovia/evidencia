@@ -17,6 +17,11 @@ public class MessageSubscriber {
     @Value("${worker.name}")
     private String name;
 
+    public MessageSubscriber(String exchangeName, String name) {
+        this.exchangeName = exchangeName;
+        this.name = name;
+    }
+
     public void subscribe() throws IOException, TimeoutException {
         System.out.println(name + " -> connecting to channel with exchange name: " + exchangeName);
         ConnectionFactory factory = new ConnectionFactory();

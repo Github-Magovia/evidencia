@@ -11,10 +11,8 @@ import java.util.concurrent.TimeoutException;
 @SpringBootApplication
 public class EvidenciaApplication {
 
-	public static void main(String[] args) throws IOException, TimeoutException {
+	public static void main(String[] args) {
 		SpringApplication.run(EvidenciaApplication.class, args);
-
-		new MessageSubscriber().subscribe();
 	}
 
 }
