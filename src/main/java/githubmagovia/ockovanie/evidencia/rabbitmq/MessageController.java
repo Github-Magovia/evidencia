@@ -33,9 +33,9 @@ public class MessageController {
     }
 
     @PostMapping("/publish")
-    public void sendReply(@RequestBody String name) throws Exception {
-        System.out.println("Publisher -> /publish with message: " + name);
+    public void sendReply(@RequestBody String message) throws Exception {
+        System.out.println("Publisher -> /publish with message: " + message);
 
-        publisher.sendMessage(name);
+        publisher.sendMessage(message);
     }
 }
