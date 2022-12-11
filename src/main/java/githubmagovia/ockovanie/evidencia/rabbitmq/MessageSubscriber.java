@@ -1,7 +1,6 @@
 package githubmagovia.ockovanie.evidencia.rabbitmq;
 
 import com.rabbitmq.client.*;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -11,11 +10,9 @@ public class MessageSubscriber {
 
     private int counter  = 0;
 
-    @Value("${message.exchange.name}")
-    private String exchangeName;
+    private final String exchangeName;
 
-    @Value("${worker.name}")
-    private String name;
+    private final String name;
 
     public MessageSubscriber(String exchangeName, String name) {
         this.exchangeName = exchangeName;
