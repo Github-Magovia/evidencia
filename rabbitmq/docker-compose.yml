@@ -13,6 +13,70 @@ services:
     networks:
       internal:
 
+  evidencia:
+    container_name: be-publisher
+    restart: always
+    image: misko3001/evidencia-be:rabbit-mq
+    ports:
+      - "8081:8081"
+    volumes:
+      - data:/var/lib/postgresql
+      - logs:/var/log/postgresql
+    networks:
+      internal:
+    depends_on:
+      - keycloak
+      - library-db
+      - rabbitmq
+
+  evidencia-worker1:
+    container_name: be-worker1
+    restart: always
+    image: misko3001/evidencia-be-worker:1.0
+    command:
+      - "-worker.name=Worker1"
+    ports:
+      - "8082:8082"
+    volumes:
+      - data:/var/lib/postgresql
+      - logs:/var/log/postgresql
+    networks:
+      internal:
+    depends_on:
+      - evidencia
+
+  evidencia-worker2:
+    container_name: be-worker2
+    restart: always
+    image: misko3001/evidencia-be-worker:1.0
+    command:
+      - "-worker.name=Worker2"
+    ports:
+      - "8083:8083"
+    volumes:
+      - data:/var/lib/postgresql
+      - logs:/var/log/postgresql
+    networks:
+      internal:
+    depends_on:
+      - evidencia
+
+  evidencia-worker3:
+    container_name: be-worker3
+    restart: always
+    image: misko3001/evidencia-be-worker:1.0
+    command:
+      - "-worker.name=Worker3"
+    ports:
+      - "8084:8084"
+    volumes:
+      - data:/var/lib/postgresql
+      - logs:/var/log/postgresql
+    networks:
+      internal:
+    depends_on:
+      - evidencia
+
   library-db:
     container_name: be_postgresql_db
     restart: always
@@ -33,22 +97,6 @@ services:
       - logs:/var/log/postgresql
     networks:
       internal:
-
-  evidencia:
-    container_name: be_app
-    restart: always
-    image: misko3001/evidencia-be:rabbit-mq
-    ports:
-      - "8081:8081"
-    volumes:
-      - data:/var/lib/postgresql
-      - logs:/var/log/postgresql
-    networks:
-      internal:
-    depends_on:
-      - keycloak
-      - library-db
-      - rabbitmq
 
   evidencia-ui:
     container_name: fe_app
