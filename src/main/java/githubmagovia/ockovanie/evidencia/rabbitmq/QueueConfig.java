@@ -13,6 +13,7 @@ public class QueueConfig {
 
     @Bean
     public Queue emailQueue() {
+        System.out.println("Publisher -> creating queue with name: " + queueName);
         return new Queue(queueName, false);
     }
 }

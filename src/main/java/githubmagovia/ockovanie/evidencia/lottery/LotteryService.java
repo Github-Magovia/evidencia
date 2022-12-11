@@ -32,8 +32,8 @@ public class LotteryService {
         this.template = template;
     }
 
-    // every 15 seconds
-    @Scheduled(fixedRate = 10000)
+    // every 30 min
+    @Scheduled(fixedRate = 1800000)
     public void addWinner(){
         LotteryEntity lottery = new LotteryEntity();
         List<PersonEntity> candidates = personService.getAllFullyVaccinated();
@@ -42,16 +42,16 @@ public class LotteryService {
             lottery.setAmount(10000);
             lottery.setDate(LocalDate.now());
             this.repository.save(lottery);
-            template.convertAndSend("emailQueue",
-                    String.format("V dnesnej loterii vyhrava: %s %s%nSuma vyhry je: %s",
-                            lottery.getPerson().getFirstName(),
-                            lottery.getPerson().getLastName(),
-                            lottery.getAmount()));
+//            template.convertAndSend("emailQueue",
+//                    String.format("V dnesnej loterii vyhrava: %s %s%nSuma vyhry je: %s",
+//                            lottery.getPerson().getFirstName(),
+//                            lottery.getPerson().getLastName(),
+//                            lottery.getAmount()));
         } else {
             log.error("No valid candidates for lottery");
-            template.convertAndSend("emailQueue",
-                    String.format("V dnesnej loterii nikto nevyhral%nSuma vyhry bola: %s",
-                            10000));
+//            template.convertAndSend("emailQueue",
+//                    String.format("V dnesnej loterii nikto nevyhral%nSuma vyhry bola: %s",
+//                            10000));
         }
     }
     public List<LotteryDto> getPeople(){

@@ -18,6 +18,7 @@ public class MessagePublisher {
     private String exchangeName;
 
     public void sendMessage(String message) throws IOException, TimeoutException {
+        System.out.println("Publisher -> channel with exchange name: " + exchangeName);
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("rabbitmq");
         try (Connection connection = factory.newConnection();
