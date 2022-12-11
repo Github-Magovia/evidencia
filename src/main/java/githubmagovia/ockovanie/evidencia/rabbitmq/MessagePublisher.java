@@ -29,7 +29,7 @@ public class MessagePublisher {
                     "",
                     null,
                     message.getBytes(StandardCharsets.UTF_8));
-            System.out.println("Sent message: " + message);
+            System.out.println("Publisher -> sent message: " + message);
         }
     }
 }

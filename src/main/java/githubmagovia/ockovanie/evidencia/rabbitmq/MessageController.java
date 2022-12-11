@@ -27,14 +27,14 @@ public class MessageController {
 
     @PostMapping("/send-to-worker")
     public void send(@RequestBody String message) {
-        System.out.println("/send-to-worker with message: " + message);
+        System.out.println("Publisher -> /send-to-worker with message: " + message);
 
         rabbitTemplate.convertAndSend(queueName, message);
     }
 
     @PostMapping("/publish")
     public void sendReply(@RequestBody String name) throws Exception {
-        System.out.println("/publish with message: " + name);
+        System.out.println("Publisher -> /publish with message: " + name);
 
         publisher.sendMessage(name);
     }
