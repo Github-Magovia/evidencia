@@ -11,8 +11,12 @@ public class QueueConfig {
     @Value("${email.queue.name}")
     private String queueName;
 
+    @Value("${worker.name}")
+    private String name;
+
     @Bean
     public Queue emailQueue() {
+        System.out.println(name + " -> creating queue with name: " + queueName);
         return new Queue(queueName, false);
     }
 }

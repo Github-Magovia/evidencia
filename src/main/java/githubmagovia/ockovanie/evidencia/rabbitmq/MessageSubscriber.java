@@ -18,6 +18,7 @@ public class MessageSubscriber {
     private String name;
 
     public void subscribe() throws IOException, TimeoutException {
+        System.out.println(name + " -> connecting to channel with exchange name: " + exchangeName);
         ConnectionFactory factory = new ConnectionFactory();
 
         factory.setHost("rabbitmq");
