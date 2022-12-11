@@ -25,7 +25,7 @@ services:
   evidencia:
     container_name: be_app
     restart: always
-    image: evidencia-be:latest
+    image: misko3001/evidencia-be:1.0
     ports:
       - "8081:8081"
     volumes:
@@ -40,7 +40,7 @@ services:
   evidencia-ui:
     container_name: fe_app
     restart: always
-    image: evidencia-fe:latest
+    image: misko3001/evidencia-fe:1.0
     ports:
       - "4200:4200"
     volumes:
