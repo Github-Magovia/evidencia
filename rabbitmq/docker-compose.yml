@@ -33,8 +33,9 @@ services:
     container_name: be-worker1
     restart: always
     image: misko3001/evidencia-be-worker:1.0
-    command:
-      - "-worker.name=Worker1"
+    environment:
+      worker.name: Worker_1
+      server.port: 8082
     ports:
       - "8082:8082"
     volumes:
@@ -49,8 +50,9 @@ services:
     container_name: be-worker2
     restart: always
     image: misko3001/evidencia-be-worker:1.0
-    command:
-      - "-worker.name=Worker2"
+    environment:
+      worker.name: Worker_2
+      server.port: 8083
     ports:
       - "8083:8083"
     volumes:
@@ -65,8 +67,9 @@ services:
     container_name: be-worker3
     restart: always
     image: misko3001/evidencia-be-worker:1.0
-    command:
-      - "-worker.name=Worker3"
+    environment:
+      worker.name: Worker_3
+      server.port: 8084
     ports:
       - "8084:8084"
     volumes:
